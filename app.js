@@ -40,14 +40,7 @@ new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-// console.log(Product.allProducts.length);
-
-
-//get random number
-
-// function random(min, max) {
-//   return Math.floor(Math.random() * (max - min + 1)) + min; // via MDN docs
-// }
+// console.log(Product.allProducts.length)
 
 
 //get random number in our array of products
@@ -82,14 +75,29 @@ console.log(threeImg);
 function renderProducts() {
   for(var i = 0; i < 3; i++) {
     var displayProduct = document.getElementById('product-display' + (i + 1));
-    displayProduct.innerHTML = '<img src="' + threeImg[i].filepath + '">';
+    displayProduct.setAttribute('src', threeImg[i].filepath);
   }
 }
 
+
 renderProducts();
 
+var target1 = document.getElementById('product-display1'); //x3
+var target2 = document.getElementById('product-display2');
+var target3 = document.getElementById('product-display3');
+
+function handleImgClick(e) {
+  console.log(e.target);
+}
+
+target1.addEventListener('click', handleImgClick);
+target2.addEventListener('click', handleImgClick);
+target3.addEventListener('click', handleImgClick);
 
 
+// var choice = renderProducts();
+// choice.addEventListener('click', selectedChoice);
+//
 
 
 

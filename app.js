@@ -1,10 +1,16 @@
 'use strict';
 
+
+//Constructor Function for all Products//
+
+
 Product.allProducts = [];
 
 function Product (name, filepath) {
   this.name = name;
   this.filepath = filepath;
+  this.totalClicks = 0;
+  this.previouslyShown = false;
   Product.allProducts.push(this);
 }
 
@@ -29,4 +35,48 @@ new Product ('usb', 'img/usn.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-console.log(Product.allProducts);
+console.log(Product.allProducts.length);
+
+
+//get random number
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min; // via MDN docs
+}
+
+//get random number in our array of products
+function getRandomProduct() {
+  return random((0, Product.allProducts.length) - 1);
+}
+
+//push images to divs
+var randProduct1 = document.getElementById('random-products1');
+var randProduct2 = document.getElementById('random-products2');
+var randProduct3 = document.getElementById('random-products3');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//kjkjlkl

@@ -31,12 +31,12 @@ new Product ('dog duck', 'img/dog-duck.jpg');
 new Product ('dragon', 'img/dragon.jpg');
 new Product ('pen', 'img/pen.jpg');
 new Product ('pet sweep', 'img/pet-sweep.jpg');
-new Product ('scizzors', 'img/scizzors.jpg');
+new Product ('scissors', 'img/scissors.jpg');
 new Product ('shark', 'img/shark.jpg');
 new Product ('sweep', 'img/sweep.png');
 new Product ('tauntaun', 'img/tauntaun.jpg');
 new Product ('unicorn', 'img/unicorn.jpg');
-new Product ('usb', 'img/usn.gif');
+new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
@@ -75,41 +75,19 @@ function generateThree () {
 
 var threeImg = generateThree();
 console.log(threeImg);
+
+
 //push images to divs
 
-// function renderProducts() {
-//   var productDisplay = document.getElementById('product-display');
-//   var productEl = document.createElement('img');
-//
-//   var choices =
-//
-//
-//
-//
-//
-// }
+function renderProducts() {
+  for(var i = 0; i < 3; i++) {
+    var displayProduct = document.getElementById('product-display' + (i + 1));
+    displayProduct.innerHTML = '<img src="' + threeImg[i].filepath + '">';
+  }
+}
 
-// function pushRandProducts() {
-//   if(totalCounter < 24) {
-//     var counter = 0;
-//
-//     while(counter < 3) {
-//       var randomProduct = Product.allProducts[getRandomProduct()];
-//
-//       if(randomProduct.shownBefore === false) {
-//         renderProducts(randomProduct);
-//         randomProduct.shownBefore = true;
-//         randomProduct.numTimesShown += 1;
-//         counter++;
-//       }
-//     }
-//   }
-// }
-//
-// function pushNewProducts() {
-//
-// }
-// pushRandProducts();
+renderProducts();
+
 
 
 

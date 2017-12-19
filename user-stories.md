@@ -8,3 +8,5 @@ as a marketing team, we want to save money by doing research online, via an appl
 as a focus group participant, i want to take a survey on a platform that is clean and beautiful.
 as a focus group participant, i want that survey to be efficient, and non repeating.
 as a focus group participant, i hope to be interested and entertained by the products that are available.
+
+melanie and i collaborated a bit on this one.

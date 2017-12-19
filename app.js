@@ -60,13 +60,13 @@ function renderProducts(product) {
   var randProduct = document.getElementById('random-products');
   var productEl = document.createElement('img');
 
-  var attribute = document.createAttribute('id');
-  attribute.value = Product.name;
-  productEl.setAttribute(attribute); //W3 schools
+  var attr = document.createAttribute('id');
+  attr.value = Product.name;
+  productEl.setAttribute(attr); //MDN
 
-  attribute = document.createAttribute('class');
+  attr = document.createAttribute('class');
   attribute.value = 'product-img';
-  productEl.setAttributeNode(attribute); //w3 schools
+  productEl.setAttributeNode(attr); //w3 schools
 
   productEl.src = Product.filepath;
   productEl.addEventListener('click', removeImg);

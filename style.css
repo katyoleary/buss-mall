@@ -1,0 +1,15 @@
+header {
+  font-family: 'Lobster', cursive;
+  font-size: 45px;
+  text-align: center;
+  background-color: #000066;
+  color: #fff;
+  padding-bottom: 10px;
+}
+
+p {
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+}

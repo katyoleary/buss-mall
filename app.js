@@ -14,6 +14,8 @@ function Product (name, filepath) {
   Product.allProducts.push(this);
 }
 
+//creating new instances
+
 new Product ('bag', 'img/bag.jpg');
 new Product ('banana', 'img/banana.jpg');
 new Product ('bathroom', 'img/bathroom.jpg');
@@ -49,9 +51,43 @@ function getRandomProduct() {
 }
 
 //push images to divs
-var randProduct1 = document.getElementById('random-products1');
-var randProduct2 = document.getElementById('random-products2');
-var randProduct3 = document.getElementById('random-products3');
+
+// var randProduct2 = document.getElementById('random-products2');
+// var randProduct3 = document.getElementById('random-products3');
+
+
+function renderProducts(product) {
+  var randProduct = document.getElementById('random-products');
+  var productEl = document.createElement('img');
+
+  var attribute = document.createAttribute('id');
+  attribute.value = Product.name;
+  productEl.setAttribute(attribute); //W3 schools
+
+  attribute = document.createAttribute('class');
+  attribute.value = 'product-img';
+  productEl.setAttributeNode(attribute); //w3 schools
+
+  productEl.src = Product.filepath;
+  productEl.addEventListener('click', removeImg);
+  randProduct.appendChild(productEl);
+}
+
+function pushRandProducts() {
+  var counter = 0;
+
+  while(counter < 3) {
+    var randomProduct = Product.allProducts[getRandomProduct()];
+
+    if randomProduct.previouslyShown === false) {
+      renderProducts(randomProduct);
+      randomProduct.preventDefault = true;
+      counter++;
+    }
+  }
+}
+pushRandProducts();
+
 
 
 

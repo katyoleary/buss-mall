@@ -10,7 +10,8 @@ function Product (name, filepath) {
   this.name = name;
   this.filepath = filepath;
   this.totalClicks = 0;
-  this.previouslyShown = false;
+  this.shownBefore = false;
+  this.numTimesShown = 0;
   Product.allProducts.push(this);
 }
 
@@ -56,7 +57,7 @@ function getRandomProduct() {
 // var randProduct3 = document.getElementById('random-products3');
 
 
-function renderProducts(product) {
+function renderProducts() {
   var randProduct = document.getElementById('random-products');
   var productEl = document.createElement('img');
 
@@ -69,24 +70,34 @@ function renderProducts(product) {
   productEl.setAttributeNode(attr); //w3 schools
 
   productEl.src = Product.filepath;
-  productEl.addEventListener('click', removeImg);
+  productEl.addEventListener('click', newImg);
+  productEl.addEventListener('click', counter)
   randProduct.appendChild(productEl);
 }
 
 function pushRandProducts() {
-  var counter = 0;
+  if(totalCounter < 24) {
+    var counter = 0;
 
-  while(counter < 3) {
-    var randomProduct = Product.allProducts[getRandomProduct()];
+    while(counter < 3) {
+      var randomProduct = Product.allProducts[getRandomProduct()];
 
-    if randomProduct.previouslyShown === false) {
-      renderProducts(randomProduct);
-      randomProduct.preventDefault = true;
-      counter++;
+      if(randomProduct.shownBefore === false) {
+        renderProducts(randomProduct);
+        randomProduct.shownBefore = true;
+        randomProduct.numTimesShown += 1;
+        counter++;
+      }
     }
   }
 }
+
+function pushNewProducts() {
+  
+}
 pushRandProducts();
+
+
 
 
 

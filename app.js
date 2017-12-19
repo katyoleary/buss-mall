@@ -5,17 +5,19 @@
 
 
 Product.allProducts = [];
+var totalCounter = 0;
+
 
 function Product (name, filepath) {
   this.name = name;
   this.filepath = filepath;
   this.totalClicks = 0;
-  this.shownBefore = false;
   this.numTimesShown = 0;
+  this.shownBefore = false;
   Product.allProducts.push(this);
 }
 
-//creating new instances
+//creating new instances of Product
 
 new Product ('bag', 'img/bag.png');
 new Product ('banana', 'img/banana.jpg');
@@ -38,64 +40,76 @@ new Product ('usb', 'img/usn.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-console.log(Product.allProducts.length);
+// console.log(Product.allProducts.length);
 
 
 //get random number
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; // via MDN docs
-}
+
+// function random(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1)) + min; // via MDN docs
+// }
+
 
 //get random number in our array of products
-function getRandomProduct() {
-  return random((0, Product.allProducts.length) - 1);
-}
 
-//push images to divs
-
-// var randProduct2 = document.getElementById('random-products2');
-// var randProduct3 = document.getElementById('random-products3');
-
-
-function renderProducts() {
-  var randProduct = document.getElementById('random-products');
-  var productEl = document.createElement('img');
-
-  var attr = document.createAttribute('id');
-  attr.value = Product.name;
-  productEl.setAttribute(attr); //MDN
-
-  attr = document.createAttribute('class');
-  attribute.value = 'product-img';
-  productEl.setAttributeNode(attr); //w3 schools
-
-  productEl.src = Product.filepath;
-  productEl.addEventListener('click', newImg);
-  productEl.addEventListener('click', counter)
-  randProduct.appendChild(productEl);
-}
-
-function pushRandProducts() {
-  if(totalCounter < 24) {
-    var counter = 0;
-
-    while(counter < 3) {
-      var randomProduct = Product.allProducts[getRandomProduct()];
-
-      if(randomProduct.shownBefore === false) {
-        renderProducts(randomProduct);
-        randomProduct.shownBefore = true;
-        randomProduct.numTimesShown += 1;
-        counter++;
+function generateThree () {
+  var counter = 0;
+  var three = [];
+  while(counter < 3) {
+    var index = Math.floor(Math.random() * (Product.allProducts.length - 1));
+    var currentProduct = Product.allProducts[index];
+    if(!currentProduct.shownBefore) {
+      currentProduct.shownBefore = true;
+      counter += 1;
+      totalCounter++;
+      three.push(currentProduct);
+    }
+    for(var i = 0; i < Product.allProducts.length; i++){
+      if(i !== index) {
+        Product.allProducts[i].shownBefore = false;
       }
     }
   }
+  return three;
 }
 
-function pushNewProducts() {
-  
-}
-pushRandProducts();
+var threeImg = generateThree();
+console.log(threeImg);
+//push images to divs
+
+// function renderProducts() {
+//   var productDisplay = document.getElementById('product-display');
+//   var productEl = document.createElement('img');
+//
+//   var choices =
+//
+//
+//
+//
+//
+// }
+
+// function pushRandProducts() {
+//   if(totalCounter < 24) {
+//     var counter = 0;
+//
+//     while(counter < 3) {
+//       var randomProduct = Product.allProducts[getRandomProduct()];
+//
+//       if(randomProduct.shownBefore === false) {
+//         renderProducts(randomProduct);
+//         randomProduct.shownBefore = true;
+//         randomProduct.numTimesShown += 1;
+//         counter++;
+//       }
+//     }
+//   }
+// }
+//
+// function pushNewProducts() {
+//
+// }
+// pushRandProducts();
 
 
 

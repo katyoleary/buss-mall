@@ -86,18 +86,16 @@ var target1 = document.getElementById('product-display1'); //x3
 var target2 = document.getElementById('product-display2');
 var target3 = document.getElementById('product-display3');
 
-function handleImgClick(e) {
-  console.log(e.target);
-}
 
 target1.addEventListener('click', handleImgClick);
 target2.addEventListener('click', handleImgClick);
 target3.addEventListener('click', handleImgClick);
 
+function handleImgClick(e) {
+  console.log(e.target);
+}
 
-// var choice = renderProducts();
-// choice.addEventListener('click', selectedChoice);
-//
+
 
 
 

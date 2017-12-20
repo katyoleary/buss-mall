@@ -5,6 +5,7 @@
 
 
 Product.allProducts = [];
+var justShown = [];
 var totalCounter = 0;
 
 
@@ -54,7 +55,7 @@ function generateThree () {
     if(!currentProduct.shownBefore) {
       currentProduct.shownBefore = true;
       counter += 1;
-      totalCounter++;
+      // totalCounter++;
       three.push(currentProduct);
     }
     for(var i = 0; i < Product.allProducts.length; i++){
@@ -76,8 +77,10 @@ function renderProducts() {
   for(var i = 0; i < 3; i++) {
     var displayProduct = document.getElementById('product-display' + (i + 1));
     displayProduct.setAttribute('src', threeImg[i].filepath);
+    threeImg[i].shownBefore = true;
   }
 }
+
 
 renderProducts();
 
@@ -96,20 +99,48 @@ target3.addEventListener('click', handleImgClick);
 
 //event
 function handleImgClick(e) {
-  console.log(e.target);
+  // console.log(e.target);
+  // console.log(e.target.src);
+  console.log(e.target.currentSrc.slice(64, -4));
+  var clicked = document.getElementById(e.target.attributes);
+
   if(totalCounter < 24) {
-    totalCounter += 1;
-    console.log(e.target.target1.src);
+    generateThree();
+    renderProducts();
+    totalCounter += 1
+    console.log(totalCounter);
   }
 }
 
+function clearClickedImages() {
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    var el = document.getElementById(Product.allProducts[i]);
 
+    if(Product.allProducts[i].shownBefore === true) {
+      el = document.getElementById(Product.allProducts[i]);
+      el.remove(el);
+      justShown.push(Product.allProducts[i]);
 
+    }
+  }
+}
 
-
-
-
-
+// justShown[0].shownBefore = false;
+// justShown[1].shownBefore = false;
+// justShown[2].shownBefore = false;
+//
+//
+// function removeImg() {
+//   for(var i = 0; i < 3; i++) {
+//   var imgs = getElementById('product-display' + ([i] + 1));
+//   imgs.remove(imgs);
+//   }
+// }
+//
+//
+//
+//
+//
 
 
 

@@ -13,3 +13,9 @@ p {
   color: #fff;
   font-size: 16px;
 }
+
+div {
+  display: inline;
+  width: 100px;
+
+}

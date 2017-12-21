@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -6,6 +7,8 @@
 
 Product.allProducts = [];
 var totalCounter = 0;
+var productNames = [];
+var numProductClicks = [];
 
 
 function Product (name, filepath) {
@@ -16,6 +19,7 @@ function Product (name, filepath) {
   this.shownBefore = false;
   Product.allProducts.push(this);
 }
+
 
 //creating new instances of Product
 
@@ -40,7 +44,6 @@ new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-// console.log(Product.allProducts.length)
 
 
 //get random number in our array of products
@@ -54,7 +57,7 @@ function generateThree () {
     if(!currentProduct.shownBefore) {
       currentProduct.shownBefore = true;
       counter += 1;
-      totalCounter++;
+      currentProduct.numTimesShown += 1;
       three.push(currentProduct);
     }
     for(var i = 0; i < Product.allProducts.length; i++){
@@ -67,7 +70,6 @@ function generateThree () {
 }
 
 var threeImg = generateThree();
-console.log(threeImg);
 
 
 //push images to divs
@@ -76,8 +78,10 @@ function renderProducts() {
   for(var i = 0; i < 3; i++) {
     var displayProduct = document.getElementById('product-display' + (i + 1));
     displayProduct.setAttribute('src', threeImg[i].filepath);
+    threeImg[i].shownBefore = true;
   }
 }
+
 
 renderProducts();
 
@@ -96,18 +100,79 @@ target3.addEventListener('click', handleImgClick);
 
 //event
 function handleImgClick(e) {
-  console.log(e.target);
+  var clicked = e.target.currentSrc.slice(64, -4);
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    if(clicked === Product.allProducts[i].name) {
+      Product.allProducts[i].totalClicks += 1;
+    }
+  }
+
   if(totalCounter < 24) {
-    totalCounter += 1;
-    console.log(e.target.target1.src);
+    threeImg = generateThree();
+    renderProducts();
+    totalCounter += 1
+    for(var i = 0; i < Product.allProducts.length; i++){
+      var  currentImageInAllImages = Product.allProducts[i]
+      for(var j = 0; j < threeImg.length; j++) {
+        var currentImageInThreeImg = threeImg[j];
+        if(currentImageInAllImages.name !== currentImageInThreeImg.name) {
+          currentImageInAllImages.shownBefore = false;
+        }
+      }
+    }
+  } else {
+    pushToChartArrays();
+    target1.removeEventListener('click', handleImgClick);
+    target2.removeEventListener('click', handleImgClick);
+    target3.removeEventListener('click', handleImgClick);
+    removeProducts();
+    makeChart();
   }
 }
 
 
 
+//make array for number of clicks for the chart//
+
+function pushToChartArrays() {
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    numProductClicks.push(Product.allProducts[i].totalClicks);
+  }
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    productNames.push(Product.allProducts[i].name);
+  }
+}
+
+function removeProducts() {
+  var product1 = document.getElementById('product-display1');
+  var product2 = document.getElementById('product-display2');
+  var product3 = document.getElementById('product-display3');
+
+  product1.remove();
+  product2.remove();
+  product3.remove();
+}
 
 
 
+//make  chart//
+
+function makeChart() {
+  console.log('chart', Product.allProducts)
+  var ctx = document.getElementById('chart');
+  var busmallChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Number of Clicks per Catalog Item',
+        data: numProductClicks,
+        backgroundColor: ['red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', ]
+      }]
+    },
+    options: {}
+  })
+}
 
 
 

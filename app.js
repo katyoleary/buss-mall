@@ -17,6 +17,7 @@ function Product (name, filepath) {
   Product.allProducts.push(this);
 }
 
+
 //creating new instances of Product
 
 new Product ('bag', 'img/bag.png');

@@ -1,3 +1,4 @@
+
 header {
   font-family: 'Lobster', cursive;
   font-size: 45px;
@@ -7,6 +8,7 @@ header {
   padding-bottom: 10px;
 }
 
+
 p {
   font-family: 'Lobster', cursive;
   text-align: center;
@@ -14,8 +16,17 @@ p {
   font-size: 16px;
 }
 
-div {
-  display: inline;
-  width: 100px;
+#product-display1 {
+  height: 350px;
+  margin-left: 200px;
+}
 
+#product-display2 {
+  display: inline;
+  height: 350px;
+}
+
+#product-display3 {
+  display: inline;
+  height: 350px;
 }

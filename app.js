@@ -18,7 +18,6 @@ function Product (name, filepath) {
 }
 
 
-
 //creating new instances of Product
 
 new Product ('bag', 'img/bag.png');
@@ -42,7 +41,6 @@ new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-// console.log(Product.allProducts.length)
 
 
 //get random number in our array of products
@@ -56,7 +54,7 @@ function generateThree () {
     if(!currentProduct.shownBefore) {
       currentProduct.shownBefore = true;
       counter += 1;
-      totalCounter++;
+      currentProduct.numTimesShown += 1;
       three.push(currentProduct);
     }
     for(var i = 0; i < Product.allProducts.length; i++){
@@ -69,7 +67,6 @@ function generateThree () {
 }
 
 var threeImg = generateThree();
-console.log(threeImg);
 
 
 //push images to divs
@@ -78,29 +75,50 @@ function renderProducts() {
   for(var i = 0; i < 3; i++) {
     var displayProduct = document.getElementById('product-display' + (i + 1));
     displayProduct.setAttribute('src', threeImg[i].filepath);
+    threeImg[i].shownBefore = true;
   }
 }
 
 
 renderProducts();
 
-var target1 = document.getElementById('product-display1'); //x3
+
+//create event listeners for choosing Products
+
+var target1 = document.getElementById('product-display1'); //x3  for each img element in HTML
 var target2 = document.getElementById('product-display2');
 var target3 = document.getElementById('product-display3');
 
 
-target1.addEventListener('click', handleImgClick);
+target1.addEventListener('click', handleImgClick); //x3
 target2.addEventListener('click', handleImgClick);
 target3.addEventListener('click', handleImgClick);
 
+
+//event
 function handleImgClick(e) {
-  console.log(e.target);
+  var clicked = e.target.currentSrc.slice(64, -4);
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    if(clicked === Product.allProducts[i].name) {
+      Product.allProducts[i].totalClicks += 1;
+    }
+  }
+
+  if(totalCounter < 24) {
+    threeImg = generateThree();
+    renderProducts();
+    totalCounter += 1
+    for(var i = 0; i < Product.allProducts.length; i++){
+      var  currentImageInAllImages = Product.allProducts[i]
+      for(var j = 0; j < threeImg.length; j++) {
+        var currentImageInThreeImg = threeImg[j];
+        if(currentImageInAllImages.name !== currentImageInThreeImg.name) {
+          currentImageInAllImages.shownBefore = false;
+        }
+      }
+    }
+  }
 }
-
-
-
-
-
 
 
 

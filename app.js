@@ -7,6 +7,10 @@
 Product.allProducts = [];
 var totalCounter = 0;
 
+var productNames = [];
+var numProductClicks = [];
+
+
 
 function Product (name, filepath) {
   this.name = name;
@@ -40,7 +44,6 @@ new Product ('unicorn', 'img/unicorn.jpg');
 new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
-
 
 
 //get random number in our array of products
@@ -80,6 +83,13 @@ function renderProducts() {
 }
 
 
+
+renderProducts();
+
+
+//create event listeners for choosing Products
+
+
 renderProducts();
 
 
@@ -117,10 +127,93 @@ function handleImgClick(e) {
         }
       }
     }
+  } else {
+    pushToChartArrays();
+    target1.removeEventListener('click', handleImgClick);
+    target2.removeEventListener('click', handleImgClick);
+    target3.removeEventListener('click', handleImgClick);
+    removeProducts();
+    makeChart();
   }
 }
 
 
+
+var target1 = document.getElementById('product-display1'); //x3  for each img element in HTML
+var target2 = document.getElementById('product-display2');
+var target3 = document.getElementById('product-display3');
+
+//make array for number of clicks for the chart//
+
+
+target1.addEventListener('click', handleImgClick); //x3
+target2.addEventListener('click', handleImgClick);
+target3.addEventListener('click', handleImgClick);
+
+function pushToChartArrays() {
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    numProductClicks.push(Product.allProducts[i].totalClicks);
+  }
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    productNames.push(Product.allProducts[i].name);
+  }
+}
+
+
+function removeProducts() {
+  var product1 = document.getElementById('product-display1');
+  var product2 = document.getElementById('product-display2');
+  var product3 = document.getElementById('product-display3');
+
+  product1.remove();
+  product2.remove();
+  product3.remove();
+}
+
+//event
+function handleImgClick(e) {
+  var clicked = e.target.currentSrc.slice(64, -4);
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    if(clicked === Product.allProducts[i].name) {
+      Product.allProducts[i].totalClicks += 1;
+    }
+  }
+
+  if(totalCounter < 24) {
+    threeImg = generateThree();
+    renderProducts();
+    totalCounter += 1
+    for(var i = 0; i < Product.allProducts.length; i++){
+      var  currentImageInAllImages = Product.allProducts[i]
+      for(var j = 0; j < threeImg.length; j++) {
+        var currentImageInThreeImg = threeImg[j];
+        if(currentImageInAllImages.name !== currentImageInThreeImg.name) {
+          currentImageInAllImages.shownBefore = false;
+        }
+      }
+    }
+  }
+}
+
+
+//make  chart//
+
+function makeChart() {
+  console.log('chart', Product.allProducts)
+  var ctx = document.getElementById('chart');
+  var busmallChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Number of Clicks per Catalog Item',
+        data: numProductClicks,
+        backgroundColor: ['red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', ]
+      }]
+    },
+    options: {}
+  })
+}
 
 
 

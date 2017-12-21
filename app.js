@@ -6,6 +6,8 @@
 
 Product.allProducts = [];
 var totalCounter = 0;
+var productNames = [];
+var numProductClicks = [];
 
 
 function Product (name, filepath) {
@@ -117,10 +119,59 @@ function handleImgClick(e) {
         }
       }
     }
+  } else {
+    pushToChartArrays();
+    target1.removeEventListener('click', handleImgClick);
+    target2.removeEventListener('click', handleImgClick);
+    target3.removeEventListener('click', handleImgClick);
+    removeProducts();
+    makeChart();
   }
 }
 
 
+
+//make array for number of clicks for the chart//
+
+function pushToChartArrays() {
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    numProductClicks.push(Product.allProducts[i].totalClicks);
+  }
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    productNames.push(Product.allProducts[i].name);
+  }
+}
+
+function removeProducts() {
+  var product1 = document.getElementById('product-display1');
+  var product2 = document.getElementById('product-display2');
+  var product3 = document.getElementById('product-display3');
+
+  product1.remove();
+  product2.remove();
+  product3.remove();
+}
+
+
+
+//make  chart//
+
+function makeChart() {
+  console.log('chart', Product.allProducts)
+  var ctx = document.getElementById('chart');
+  var busmallChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Number of Clicks per Catalog Item',
+        data: numProductClicks,
+        backgroundColor: ['red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', 'green', 'red', 'yellow', ]
+      }]
+    },
+    options: {}
+  })
+}
 
 
 

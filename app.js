@@ -5,7 +5,6 @@
 
 
 Product.allProducts = [];
-var justShown = [];
 var totalCounter = 0;
 
 
@@ -55,6 +54,8 @@ function generateThree () {
     if(!currentProduct.shownBefore) {
       currentProduct.shownBefore = true;
       counter += 1;
+      currentProduct.numTimesShown += 1;
+      // console.log(currentProduct.numTimesShown);
       // totalCounter++;
       three.push(currentProduct);
     }
@@ -68,7 +69,7 @@ function generateThree () {
 }
 
 var threeImg = generateThree();
-console.log(threeImg);
+// console.log(threeImg);
 
 
 //push images to divs
@@ -99,36 +100,47 @@ target3.addEventListener('click', handleImgClick);
 
 //event
 function handleImgClick(e) {
-  // console.log(e.target);
-  // console.log(e.target.src);
-  console.log(e.target.currentSrc.slice(64, -4));
-  var clicked = document.getElementById(e.target.attributes);
+  var clicked = e.target.currentSrc.slice(64, -4);
+  // console.log(clicked);
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    // console.log(Product.allProducts[i].name);
+    if(clicked === Product.allProducts[i].name) {
+      Product.allProducts[i].totalClicks += 1;
+    }
+  }
 
   if(totalCounter < 24) {
-    generateThree();
+    // console.log(threeImg);
+    threeImg = generateThree();
     renderProducts();
     totalCounter += 1
-    console.log(totalCounter);
-  }
-}
-
-function clearClickedImages() {
-  for(var i = 0; i < Product.allProducts.length; i++) {
-    var el = document.getElementById(Product.allProducts[i]);
-
-    if(Product.allProducts[i].shownBefore === true) {
-      el = document.getElementById(Product.allProducts[i]);
-      el.remove(el);
-      justShown.push(Product.allProducts[i]);
-
+    for(var i = 0; i < Product.allProducts.length; i++){
+      var  currentImageInAllImages = Product.allProducts[i]
+      for(var j = 0; j < threeImg.length; j++) {
+        var currentImageInThreeImg = threeImg[j];
+        if(currentImageInAllImages.name !== currentImageInThreeImg.name) {
+          currentImageInAllImages.shownBefore = false;
+        }
+      }
     }
   }
 }
 
-// justShown[0].shownBefore = false;
-// justShown[1].shownBefore = false;
-// justShown[2].shownBefore = false;
+
+
+// function clearClickedImages() {
+//   for(var i = 0; i < Product.allProducts.length; i++) {
+//     var el = document.getElementById(Product.allProducts[i].name);
 //
+//     if(Product.allProducts[i].shownBefore === true) {
+//       el = document.getElementById(Product.allProducts[i].name);
+//       el.remove(el);
+//       justShown.push(Product.allProducts[i]);
+//
+//     }
+//   }
+// }
+
 //
 // function removeImg() {
 //   for(var i = 0; i < 3; i++) {

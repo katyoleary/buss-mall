@@ -19,6 +19,7 @@ function Product (name, filepath) {
 
 
 
+
 //creating new instances of Product
 
 new Product ('bag', 'img/bag.png');

@@ -40,7 +40,6 @@ new Product ('usb', 'img/usb.gif');
 new Product ('water can', 'img/water-can.jpg');
 new Product ('wine glass', 'img/wine-glass.jpg');
 
-// console.log(Product.allProducts.length)
 
 
 //get random number in our array of products
@@ -55,8 +54,6 @@ function generateThree () {
       currentProduct.shownBefore = true;
       counter += 1;
       currentProduct.numTimesShown += 1;
-      // console.log(currentProduct.numTimesShown);
-      // totalCounter++;
       three.push(currentProduct);
     }
     for(var i = 0; i < Product.allProducts.length; i++){
@@ -69,7 +66,6 @@ function generateThree () {
 }
 
 var threeImg = generateThree();
-// console.log(threeImg);
 
 
 //push images to divs
@@ -101,16 +97,13 @@ target3.addEventListener('click', handleImgClick);
 //event
 function handleImgClick(e) {
   var clicked = e.target.currentSrc.slice(64, -4);
-  // console.log(clicked);
   for(var i = 0; i < Product.allProducts.length; i++) {
-    // console.log(Product.allProducts[i].name);
     if(clicked === Product.allProducts[i].name) {
       Product.allProducts[i].totalClicks += 1;
     }
   }
 
   if(totalCounter < 24) {
-    // console.log(threeImg);
     threeImg = generateThree();
     renderProducts();
     totalCounter += 1
@@ -128,31 +121,7 @@ function handleImgClick(e) {
 
 
 
-// function clearClickedImages() {
-//   for(var i = 0; i < Product.allProducts.length; i++) {
-//     var el = document.getElementById(Product.allProducts[i].name);
-//
-//     if(Product.allProducts[i].shownBefore === true) {
-//       el = document.getElementById(Product.allProducts[i].name);
-//       el.remove(el);
-//       justShown.push(Product.allProducts[i]);
-//
-//     }
-//   }
-// }
 
-//
-// function removeImg() {
-//   for(var i = 0; i < 3; i++) {
-//   var imgs = getElementById('product-display' + ([i] + 1));
-//   imgs.remove(imgs);
-//   }
-// }
-//
-//
-//
-//
-//
 
 
 

@@ -22,28 +22,34 @@ function Product (name, filepath) {
 
 
 //creating new instances of Product
+function allNewProducts() {
+  new Product ('bag', 'img/bag.png');
+  new Product ('banana', 'img/banana.jpg');
+  new Product ('bathroom', 'img/bathroom.jpg');
+  new Product ('boots', 'img/boots.jpg');
+  new Product ('breakfast', 'img/breakfast.jpg');
+  new Product ('bubblegum', 'img/bubblegum.jpg');
+  new Product ('chair', 'img/chair.jpg');
+  new Product ('cthulhu', 'img/cthulhu.jpg');
+  new Product ('dog duck', 'img/dog-duck.jpg');
+  new Product ('dragon', 'img/dragon.jpg');
+  new Product ('pen', 'img/pen.jpg');
+  new Product ('pet sweep', 'img/pet-sweep.jpg');
+  new Product ('scissors', 'img/scissors.jpg');
+  new Product ('shark', 'img/shark.jpg');
+  new Product ('sweep', 'img/sweep.png');
+  new Product ('tauntaun', 'img/tauntaun.jpg');
+  new Product ('unicorn', 'img/unicorn.jpg');
+  new Product ('usb', 'img/usb.gif');
+  new Product ('water can', 'img/water-can.jpg');
+  new Product ('wine glass', 'img/wine-glass.jpg');
+}
 
-new Product ('bag', 'img/bag.png');
-new Product ('banana', 'img/banana.jpg');
-new Product ('bathroom', 'img/bathroom.jpg');
-new Product ('boots', 'img/boots.jpg');
-new Product ('breakfast', 'img/breakfast.jpg');
-new Product ('bubblegum', 'img/bubblegum.jpg');
-new Product ('chair', 'img/chair.jpg');
-new Product ('cthulhu', 'img/cthulhu.jpg');
-new Product ('dog duck', 'img/dog-duck.jpg');
-new Product ('dragon', 'img/dragon.jpg');
-new Product ('pen', 'img/pen.jpg');
-new Product ('pet sweep', 'img/pet-sweep.jpg');
-new Product ('scissors', 'img/scissors.jpg');
-new Product ('shark', 'img/shark.jpg');
-new Product ('sweep', 'img/sweep.png');
-new Product ('tauntaun', 'img/tauntaun.jpg');
-new Product ('unicorn', 'img/unicorn.jpg');
-new Product ('usb', 'img/usb.gif');
-new Product ('water can', 'img/water-can.jpg');
-new Product ('wine glass', 'img/wine-glass.jpg');
-
+if(localStorage.productData) {
+  Product.allProducts = JSON.parse(localStorage.productData);
+} else {
+  allNewProducts();
+}
 
 
 //get random number in our array of products
@@ -52,7 +58,7 @@ function generateThree () {
   var counter = 0;
   var three = [];
   while(counter < 3) {
-    var index = Math.floor(Math.random() * (Product.allProducts.length - 1));
+    var index = Math.floor(Math.random() * (Product.allProducts.length));
     var currentProduct = Product.allProducts[index];
     if(!currentProduct.shownBefore) {
       currentProduct.shownBefore = true;
@@ -60,9 +66,14 @@ function generateThree () {
       currentProduct.numTimesShown += 1;
       three.push(currentProduct);
     }
-    for(var i = 0; i < Product.allProducts.length; i++){
-      if(i !== index) {
-        Product.allProducts[i].shownBefore = false;
+  }
+  for(var i = 0; i < Product.allProducts.length; i++) {
+    var allImg = Product.allProducts[i];
+    for(var j = 0; j < three.length; j++) {
+      var currentImg = three[j];
+      if(allImg.name !== currentImg.name) {
+        console.log(allImg);
+        allImg.shownBefore = false;
       }
     }
   }
@@ -127,6 +138,7 @@ function handleImgClick(e) {
     target3.removeEventListener('click', handleImgClick);
     removeProducts();
     makeChart();
+    save();
   }
 }
 
@@ -177,6 +189,10 @@ function makeChart() {
 
 
 
+function save() {
+  // localStorage.productNames = JSON.stringify(productNames);
+  localStorage.productData = JSON.stringify(Product.allProducts);
+}
 
 
 

@@ -1,4 +1,3 @@
-
 'use strict';
 
 
@@ -22,6 +21,7 @@ function Product (name, filepath) {
 
 
 //creating new instances of Product
+
 function allNewProducts() {
   new Product ('bag', 'img/bag.png');
   new Product ('banana', 'img/banana.jpg');
@@ -166,7 +166,6 @@ function removeProducts() {
 }
 
 
-
 //make  chart//
 
 function makeChart() {
@@ -193,6 +192,26 @@ function save() {
   // localStorage.productNames = JSON.stringify(productNames);
   localStorage.productData = JSON.stringify(Product.allProducts);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//kjkjlkl
 
 
 

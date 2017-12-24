@@ -1,3 +1,5 @@
+'use strict';
+
 /*!
  * Chart.js
  * http://chartjs.org/
